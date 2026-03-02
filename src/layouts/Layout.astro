@@ -1,14 +1,23 @@
 ---
 import "../styles/global.css";
+import SEO from "../components/SEO.astro";
+import DarkModeToggle from "../components/DarkModeToggle.astro";
+import SearchWidget from "../components/SearchWidget.astro";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedDate?: string;
 }
 
 const {
   title = "Schützenverein Hochdorf 1955 e.V.",
   description = "Tradition, Präzision und Gemeinschaft im Schützensport.",
+  image,
+  type,
+  publishedDate,
 } = Astro.props;
 
 const navItems = [
@@ -39,11 +48,20 @@ const currentPath = Astro.url.pathname;
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
+    <SEO title={title} description={description} image={image} type={type} publishedDate={publishedDate} />
     <title>{title}</title>
+    <script is:inline>
+      // Prevent FOUC: apply dark mode before paint
+      (function() {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
   <body
-    class="bg-sand-50 text-forest-950 font-body min-h-screen flex flex-col antialiased"
+    class="bg-sand-50 dark:bg-forest-950 text-forest-950 dark:text-sand-100 font-body min-h-screen flex flex-col antialiased"
   >
     <!-- Top accent bar -->
     <div
@@ -99,6 +117,11 @@ const currentPath = Astro.url.pathname;
             </ul>
           </nav>
 
+          <!-- Header actions -->
+          <div class="flex items-center gap-1">
+            <SearchWidget />
+            <DarkModeToggle />
+
           <!-- Mobile menu button -->
           <button
             id="mobile-menu-btn"
@@ -137,6 +160,7 @@ const currentPath = Astro.url.pathname;
                 d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
+          </div>
         </div>
       </div>
 

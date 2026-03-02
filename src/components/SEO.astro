@@ -1,0 +1,65 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedDate?: string;
+}
+
+const {
+  title = "Schützenverein Hochdorf 1955 e.V.",
+  description = "Tradition, Präzision und Gemeinschaft im Schützensport seit 1955 in Nagold-Hochdorf.",
+  image = "/img/wappen1.jpg",
+  type = "website",
+  publishedDate,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://svh1955.de");
+const imageURL = new URL(image, Astro.site ?? "https://svh1955.de");
+---
+
+<!-- Primary Meta Tags -->
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL.href} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL.href} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL.href} />
+<meta property="og:site_name" content="Schützenverein Hochdorf 1955 e.V." />
+<meta property="og:locale" content="de_DE" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL.href} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={imageURL.href} />
+
+{publishedDate && <meta property="article:published_time" content={publishedDate} />}
+
+<!-- JSON-LD Structured Data -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SportsClub",
+    name: "Schützenverein Hochdorf 1955 e.V.",
+    url: "https://svh1955.de",
+    description,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Mühlenstraße 46",
+      addressLocality: "Nagold-Hochdorf",
+      postalCode: "72202",
+      addressCountry: "DE",
+    },
+    foundingDate: "1955-10-15",
+    sport: "Schießsport",
+    email: "kontakt@svh1955.de",
+  })}
+/>

@@ -1,0 +1,133 @@
+---
+// Client-side search widget — searches a pre-built JSON index
+---
+
+<div class="relative" id="search-container">
+  <button
+    id="search-toggle"
+    type="button"
+    aria-label="Suche öffnen"
+    class="inline-flex items-center justify-center p-2 rounded-md text-forest-100 hover:text-white hover:bg-forest-800 transition-colors"
+  >
+    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+    </svg>
+  </button>
+
+  <!-- Search modal -->
+  <div
+    id="search-modal"
+    class="hidden fixed inset-0 z-[100] bg-forest-950/60 backdrop-blur-sm"
+  >
+    <div class="max-w-xl mx-auto mt-20 px-4">
+      <div class="bg-white dark:bg-forest-900 rounded-xl shadow-2xl border border-sand-200 dark:border-forest-700 overflow-hidden">
+        <div class="flex items-center px-4 border-b border-sand-200 dark:border-forest-700">
+          <svg class="w-5 h-5 text-forest-600 dark:text-forest-100 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+          </svg>
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Seite suchen…"
+            autocomplete="off"
+            class="w-full px-3 py-4 bg-transparent text-forest-900 dark:text-white placeholder-forest-600/50 dark:placeholder-forest-100/50 outline-none text-lg"
+          />
+          <button id="search-close" type="button" class="p-1 text-forest-600 dark:text-forest-100 hover:text-forest-900 dark:hover:text-white">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <ul id="search-results" class="max-h-80 overflow-y-auto p-2 text-sm"></ul>
+        <div id="search-empty" class="hidden p-4 text-center text-forest-600/60 dark:text-forest-100/60 text-sm">
+          Keine Ergebnisse gefunden.
+        </div>
+      </div>
+      <p class="text-center text-xs text-white/50 mt-3">ESC zum Schließen</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Search index — static pages
+  const pages = [
+    { title: "Startseite", url: "/", keywords: "home willkommen start schützenverein hochdorf" },
+    { title: "Aktuelles", url: "/aktuelles", keywords: "neuigkeiten meldungen aktuell news" },
+    { title: "Verein", url: "/verein", keywords: "über verein gründung historie vorstand" },
+    { title: "Chronik", url: "/chronik", keywords: "geschichte chronik jahrzehnte 1955" },
+    { title: "Schützenhaus", url: "/schuetzenhaus", keywords: "schützenhaus gaststätte sandhalde öffnungszeiten" },
+    { title: "Ergebnisse", url: "/ergebnisse", keywords: "ergebnisse wettkampf luftgewehr luftpistole liga" },
+    { title: "Mitgliedschaft", url: "/mitgliedschaft", keywords: "mitglied werden probetraining antrag jugend" },
+    { title: "Kontakt", url: "/kontakt", keywords: "kontakt anschrift vorstandschaft email" },
+    { title: "Impressum", url: "/impressum", keywords: "impressum rechtliches angaben" },
+    { title: "Datenschutz", url: "/datenschutz", keywords: "datenschutz dsgvo verarbeitung" },
+  ];
+
+  function initSearch() {
+    const toggle = document.getElementById("search-toggle");
+    const modal = document.getElementById("search-modal");
+    const input = document.getElementById("search-input") as HTMLInputElement;
+    const results = document.getElementById("search-results");
+    const empty = document.getElementById("search-empty");
+    const close = document.getElementById("search-close");
+
+    function openSearch() {
+      modal?.classList.remove("hidden");
+      input?.focus();
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeSearch() {
+      modal?.classList.add("hidden");
+      if (input) input.value = "";
+      if (results) results.innerHTML = "";
+      empty?.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    function search(query: string) {
+      if (!results || !empty) return;
+      const q = query.toLowerCase().trim();
+      if (!q) {
+        results.innerHTML = "";
+        empty.classList.add("hidden");
+        return;
+      }
+      const matches = pages.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.keywords.toLowerCase().includes(q)
+      );
+      if (matches.length === 0) {
+        results.innerHTML = "";
+        empty.classList.remove("hidden");
+      } else {
+        empty.classList.add("hidden");
+        results.innerHTML = matches
+          .map(
+            (p) =>
+              `<li><a href="${p.url}" class="block px-4 py-3 rounded-lg hover:bg-sand-100 dark:hover:bg-forest-800 text-forest-900 dark:text-white transition-colors"><span class="font-medium">${p.title}</span><span class="text-forest-600/50 dark:text-forest-100/50 ml-2">${p.url}</span></a></li>`
+          )
+          .join("");
+      }
+    }
+
+    toggle?.addEventListener("click", openSearch);
+    close?.addEventListener("click", closeSearch);
+    modal?.addEventListener("click", (e) => {
+      if (e.target === modal) closeSearch();
+    });
+    input?.addEventListener("input", () => search(input.value));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeSearch();
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+  }
+
+  initSearch();
+  document.addEventListener("astro:after-swap", initSearch);
+</script>

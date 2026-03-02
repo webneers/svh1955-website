@@ -18,6 +18,8 @@
   --font-family-body: "Inter", "Segoe UI", system-ui, sans-serif;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -30,6 +32,17 @@
 
   ::selection {
     background-color: var(--color-gold-300);
+    color: var(--color-forest-950);
+  }
+
+  /* Dark mode base overrides */
+  .dark body {
+    background-color: var(--color-forest-950);
+    color: var(--color-sand-100);
+  }
+
+  .dark ::selection {
+    background-color: var(--color-gold-500);
     color: var(--color-forest-950);
   }
 }
