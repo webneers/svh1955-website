@@ -1,5 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import gaststaetteInnenImage from "../assets/Gaststaette_600_2.jpg";
+import gaststaetteAussenImage from "../assets/Gaststaette_600_3.jpg";
 ---
 
 <Layout title="SV Hochdorf 1955 – Schützenhaus">
@@ -25,14 +28,22 @@ import Layout from "../layouts/Layout.astro";
     class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 mb-8 relative z-10"
   >
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <img
-        src="/img/Gaststaette_600_2.jpg"
+      <Image
+        src={gaststaetteInnenImage}
         alt="Gaststätte Innenansicht"
+        width={600}
+        height={320}
+        format="webp"
+        quality={80}
         class="rounded-xl shadow-lg w-full h-48 sm:h-56 object-cover"
       />
-      <img
-        src="/img/Gaststaette_600_3.jpg"
+      <Image
+        src={gaststaetteAussenImage}
         alt="Gaststätte Außenansicht"
+        width={600}
+        height={320}
+        format="webp"
+        quality={80}
         class="rounded-xl shadow-lg w-full h-48 sm:h-56 object-cover"
       />
     </div>

@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import wappenImage from "../assets/wappen1.jpg";
 ---
 
 <Layout title="SV Hochdorf 1955 – Verein">
@@ -7,9 +9,13 @@ import Layout from "../layouts/Layout.astro";
   <section class="bg-gradient-to-br from-forest-900 to-forest-800 text-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
       <div class="flex items-center gap-5 mb-6">
-        <img
-          src="/img/wappen1.jpg"
+        <Image
+          src={wappenImage}
           alt="Vereinswappen SV Hochdorf"
+          width={96}
+          height={96}
+          format="webp"
+          quality={80}
           class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-gold-500/40 object-cover shadow-lg"
         />
         <div>
@@ -53,10 +59,14 @@ import Layout from "../layouts/Layout.astro";
             ></path>
           </svg>
         </div>
-        <h2 class="font-heading font-bold text-lg text-forest-900 dark:text-white mb-2">
+        <h2
+          class="font-heading font-bold text-lg text-forest-900 dark:text-white mb-2"
+        >
           Historie & Gründung
         </h2>
-        <p class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed">
+        <p
+          class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed"
+        >
           Erste Pokalwettbewerbe fanden bereits 1955 statt. Seitdem prägen
           Vereinsarbeit, Eigenleistung und sportliche Entwicklung unsere
           Geschichte.
@@ -88,7 +98,9 @@ import Layout from "../layouts/Layout.astro";
         >
           Chronik
         </h2>
-        <p class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed">
+        <p
+          class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed"
+        >
           Die wichtigsten Stationen von 1955 bis 2003 sind auf unserer
           Chronikseite zusammengefasst.
         </p>
@@ -130,10 +142,14 @@ import Layout from "../layouts/Layout.astro";
             ></path>
           </svg>
         </div>
-        <h2 class="font-heading font-bold text-lg text-forest-900 dark:text-white mb-2">
+        <h2
+          class="font-heading font-bold text-lg text-forest-900 dark:text-white mb-2"
+        >
           Vorstand & Dokumente
         </h2>
-        <p class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed">
+        <p
+          class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed"
+        >
           Ansprechpartner der Vorstandschaft sowie Satzung und Mitgliedsantrag
           werden fortlaufend aktualisiert.
         </p>
