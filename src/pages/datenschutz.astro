@@ -3,41 +3,81 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="SV Hochdorf 1955 – Datenschutz">
-  <section class="hero">
-    <p class="eyebrow">Rechtliches</p>
-    <h1>Datenschutzerklärung</h1>
-    <p>
-      Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.
-    </p>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-forest-900 to-forest-800 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <span
+        class="inline-block px-3 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-gold-400 border border-gold-500/30 rounded-full mb-4"
+        >Rechtliches</span
+      >
+      <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+        Datenschutzerklärung
+      </h1>
+      <p class="text-lg text-forest-100/80">
+        Informationen zur Verarbeitung personenbezogener Daten auf dieser
+        Website.
+      </p>
+    </div>
   </section>
 
-  <section class="card">
-    <h2>Verantwortlicher</h2>
-    <p>
-      Schützenverein Hochdorf 1955 e.V., Mühlenstraße 46, 72202 Nagold-Hochdorf.
-    </p>
-    <h2>Zweck der Verarbeitung</h2>
-    <p>
-      Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung
-      der Website, zur Beantwortung von Anfragen und zur Erfüllung gesetzlicher
-      Pflichten erforderlich ist.
-    </p>
-    <h2>Betroffenenrechte</h2>
-    <p>
-      Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der
-      Verarbeitung, Datenübertragbarkeit und Widerspruch im Rahmen der DSGVO.
-    </p>
-    <h2>Server-Logfiles</h2>
-    <p>
-      Bei informatorischer Nutzung der Website werden technische Zugriffsdaten
-      (z. B. IP-Adresse, Zeitpunkt, Browserinformationen) verarbeitet. Die
-      Speicherdauer beträgt in der Regel 30 Tage.
-    </p>
-    <h2>Kontaktanfragen</h2>
-    <p>
-      Bei Kontakt per E-Mail werden Angaben zur Bearbeitung deiner Anfrage
-      gespeichert und nach Zweckwegfall gelöscht, soweit keine gesetzlichen
-      Aufbewahrungspflichten bestehen.
-    </p>
+  <!-- Content -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div
+      class="bg-white rounded-xl shadow-md border border-sand-200 p-8 space-y-8"
+    >
+      <div>
+        <h2 class="font-heading font-bold text-lg text-forest-900 mb-2">
+          Verantwortlicher
+        </h2>
+        <p class="text-sm text-forest-700/70 leading-relaxed">
+          Schützenverein Hochdorf 1955 e.V., Mühlenstraße 46, 72202
+          Nagold-Hochdorf.
+        </p>
+      </div>
+      <div class="h-px bg-sand-200"></div>
+      <div>
+        <h2 class="font-heading font-bold text-lg text-forest-900 mb-2">
+          Zweck der Verarbeitung
+        </h2>
+        <p class="text-sm text-forest-700/70 leading-relaxed">
+          Wir verarbeiten personenbezogene Daten nur, soweit dies zur
+          Bereitstellung der Website, zur Beantwortung von Anfragen und zur
+          Erfüllung gesetzlicher Pflichten erforderlich ist.
+        </p>
+      </div>
+      <div class="h-px bg-sand-200"></div>
+      <div>
+        <h2 class="font-heading font-bold text-lg text-forest-900 mb-2">
+          Betroffenenrechte
+        </h2>
+        <p class="text-sm text-forest-700/70 leading-relaxed">
+          Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung
+          der Verarbeitung, Datenübertragbarkeit und Widerspruch im Rahmen der
+          DSGVO.
+        </p>
+      </div>
+      <div class="h-px bg-sand-200"></div>
+      <div>
+        <h2 class="font-heading font-bold text-lg text-forest-900 mb-2">
+          Server-Logfiles
+        </h2>
+        <p class="text-sm text-forest-700/70 leading-relaxed">
+          Bei informatorischer Nutzung der Website werden technische
+          Zugriffsdaten (z. B. IP-Adresse, Zeitpunkt, Browserinformationen)
+          verarbeitet. Die Speicherdauer beträgt in der Regel 30 Tage.
+        </p>
+      </div>
+      <div class="h-px bg-sand-200"></div>
+      <div>
+        <h2 class="font-heading font-bold text-lg text-forest-900 mb-2">
+          Kontaktanfragen
+        </h2>
+        <p class="text-sm text-forest-700/70 leading-relaxed">
+          Bei Kontakt per E-Mail werden Angaben zur Bearbeitung deiner Anfrage
+          gespeichert und nach Zweckwegfall gelöscht, soweit keine gesetzlichen
+          Aufbewahrungspflichten bestehen.
+        </p>
+      </div>
+    </div>
   </section>
 </Layout>

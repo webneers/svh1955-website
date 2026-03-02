@@ -3,19 +3,54 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="SV Hochdorf 1955 – Aktuelles">
-  <section class="hero">
-    <p class="eyebrow">Aktuelles</p>
-    <h1>Neuigkeiten aus dem Vereinsleben</h1>
-    <p>
-      Ankündigungen, Hinweise zum Schießbetrieb und Meldungen rund um Wettkämpfe
-      und Veranstaltungen.
-    </p>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-forest-900 to-forest-800 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <span
+        class="inline-block px-3 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-gold-400 border border-gold-500/30 rounded-full mb-4"
+        >Aktuelles</span
+      >
+      <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+        Neuigkeiten aus dem Vereinsleben
+      </h1>
+      <p class="text-lg text-forest-100/80 max-w-2xl">
+        Ankündigungen, Hinweise zum Schießbetrieb und Meldungen rund um
+        Wettkämpfe und Veranstaltungen.
+      </p>
+    </div>
   </section>
 
-  <section class="card">
-    <h2>Unsere Homepage wird momentan umgebaut</h2>
-    <p>
-      Wir bitten um etwas Geduld. Schaut einfach bei Gelegenheit wieder vorbei.
-    </p>
+  <!-- Content -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <article class="bg-white rounded-xl shadow-md border border-sand-200 p-8">
+      <div class="flex items-start gap-4">
+        <div
+          class="w-10 h-10 rounded-lg bg-gold-500/10 flex items-center justify-center shrink-0 mt-1"
+        >
+          <svg
+            class="w-5 h-5 text-gold-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M11.42 15.17l-5.384 3.17 1.42-5.88L2.792 8.2l6.063-.516L11.42 2.25l2.565 5.434 6.063.516-4.664 4.26 1.42 5.88z"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <h2 class="font-heading font-bold text-xl text-forest-900 mb-2">
+            Unsere Homepage wird momentan umgebaut
+          </h2>
+          <p class="text-forest-700/70 leading-relaxed">
+            Wir bitten um etwas Geduld. Schaut einfach bei Gelegenheit wieder
+            vorbei.
+          </p>
+        </div>
+      </div>
+    </article>
   </section>
 </Layout>
