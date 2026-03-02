@@ -48,14 +48,24 @@ const currentPath = Astro.url.pathname;
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <SEO title={title} description={description} image={image} type={type} publishedDate={publishedDate} />
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      publishedDate={publishedDate}
+    />
     <title>{title}</title>
     <script is:inline>
       // Prevent FOUC: apply dark mode before paint
-      (function() {
-        const stored = localStorage.getItem('theme');
-        if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark');
+      (function () {
+        const stored = localStorage.getItem("theme");
+        if (
+          stored === "dark" ||
+          (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
         }
       })();
     </script>
@@ -122,44 +132,44 @@ const currentPath = Astro.url.pathname;
             <SearchWidget />
             <DarkModeToggle />
 
-          <!-- Mobile menu button -->
-          <button
-            id="mobile-menu-btn"
-            type="button"
-            class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-forest-100 hover:text-white hover:bg-forest-800 transition-colors"
-            aria-expanded="false"
-            aria-controls="mobile-menu"
-          >
-            <span class="sr-only">Menü öffnen</span>
-            <!-- Hamburger icon -->
-            <svg
-              id="menu-icon-open"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
+            <!-- Mobile menu button -->
+            <button
+              id="mobile-menu-btn"
+              type="button"
+              class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-forest-100 hover:text-white hover:bg-forest-800 transition-colors"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-            </svg>
-            <!-- Close icon -->
-            <svg
-              id="menu-icon-close"
-              class="h-6 w-6 hidden"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
+              <span class="sr-only">Menü öffnen</span>
+              <!-- Hamburger icon -->
+              <svg
+                id="menu-icon-open"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+              </svg>
+              <!-- Close icon -->
+              <svg
+                id="menu-icon-close"
+                class="h-6 w-6 hidden"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
           </div>
         </div>
       </div>

@@ -1,125 +1,93 @@
 ---
-// Client-side search widget — searches a pre-built JSON index
+// Pagefind search — full-text search powered by static index
 ---
 
-<div class="relative" id="search-container">
-  <button
-    id="search-toggle"
-    type="button"
-    aria-label="Suche öffnen"
-    class="inline-flex items-center justify-center p-2 rounded-md text-forest-100 hover:text-white hover:bg-forest-800 transition-colors"
+<button
+  id="search-toggle"
+  type="button"
+  aria-label="Suche öffnen"
+  class="inline-flex items-center justify-center p-2 rounded-md text-forest-100 hover:text-white hover:bg-forest-800 transition-colors"
+>
+  <svg
+    class="w-5 h-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="currentColor"
   >
-    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
-    </svg>
-  </button>
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+    ></path>
+  </svg>
+</button>
 
-  <!-- Search modal -->
-  <div
-    id="search-modal"
-    class="hidden fixed inset-0 z-[100] bg-forest-950/60 backdrop-blur-sm"
-  >
-    <div class="max-w-xl mx-auto mt-20 px-4">
-      <div class="bg-white dark:bg-forest-900 rounded-xl shadow-2xl border border-sand-200 dark:border-forest-700 overflow-hidden">
-        <div class="flex items-center px-4 border-b border-sand-200 dark:border-forest-700">
-          <svg class="w-5 h-5 text-forest-600 dark:text-forest-100 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
-          </svg>
-          <input
-            id="search-input"
-            type="text"
-            placeholder="Seite suchen…"
-            autocomplete="off"
-            class="w-full px-3 py-4 bg-transparent text-forest-900 dark:text-white placeholder-forest-600/50 dark:placeholder-forest-100/50 outline-none text-lg"
-          />
-          <button id="search-close" type="button" class="p-1 text-forest-600 dark:text-forest-100 hover:text-forest-900 dark:hover:text-white">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <ul id="search-results" class="max-h-80 overflow-y-auto p-2 text-sm"></ul>
-        <div id="search-empty" class="hidden p-4 text-center text-forest-600/60 dark:text-forest-100/60 text-sm">
-          Keine Ergebnisse gefunden.
-        </div>
-      </div>
-      <p class="text-center text-xs text-white/50 mt-3">ESC zum Schließen</p>
-    </div>
+<!-- Pagefind modal -->
+<div
+  id="search-modal"
+  class="hidden fixed inset-0 z-[100] bg-forest-950/60 backdrop-blur-sm"
+>
+  <div class="max-w-xl mx-auto mt-20 px-4">
+    <div id="pagefind-container"></div>
+    <p class="text-center text-xs text-white/50 mt-3">ESC zum Schließen</p>
   </div>
 </div>
 
-<script>
-  // Search index — static pages
-  const pages = [
-    { title: "Startseite", url: "/", keywords: "home willkommen start schützenverein hochdorf" },
-    { title: "Aktuelles", url: "/aktuelles", keywords: "neuigkeiten meldungen aktuell news" },
-    { title: "Verein", url: "/verein", keywords: "über verein gründung historie vorstand" },
-    { title: "Chronik", url: "/chronik", keywords: "geschichte chronik jahrzehnte 1955" },
-    { title: "Schützenhaus", url: "/schuetzenhaus", keywords: "schützenhaus gaststätte sandhalde öffnungszeiten" },
-    { title: "Ergebnisse", url: "/ergebnisse", keywords: "ergebnisse wettkampf luftgewehr luftpistole liga" },
-    { title: "Mitgliedschaft", url: "/mitgliedschaft", keywords: "mitglied werden probetraining antrag jugend" },
-    { title: "Kontakt", url: "/kontakt", keywords: "kontakt anschrift vorstandschaft email" },
-    { title: "Impressum", url: "/impressum", keywords: "impressum rechtliches angaben" },
-    { title: "Datenschutz", url: "/datenschutz", keywords: "datenschutz dsgvo verarbeitung" },
-  ];
+<script is:inline>
+  var pagefindUI = null;
 
   function initSearch() {
-    const toggle = document.getElementById("search-toggle");
-    const modal = document.getElementById("search-modal");
-    const input = document.getElementById("search-input") as HTMLInputElement;
-    const results = document.getElementById("search-results");
-    const empty = document.getElementById("search-empty");
-    const close = document.getElementById("search-close");
+    var toggle = document.getElementById("search-toggle");
+    var modal = document.getElementById("search-modal");
 
     function openSearch() {
-      modal?.classList.remove("hidden");
-      input?.focus();
+      if (modal) modal.classList.remove("hidden");
       document.body.style.overflow = "hidden";
+
+      // Lazy-load Pagefind UI on first open
+      if (!pagefindUI) {
+        var script = document.createElement("script");
+        script.src = "/pagefind/pagefind-ui.js";
+        script.onload = function () {
+          pagefindUI = new window.PagefindUI({
+            element: "#pagefind-container",
+            showSubResults: true,
+            showImages: false,
+            translations: {
+              placeholder: "Seite suchen\u2026",
+              zero_results: "Keine Ergebnisse f\u00FCr \u201E[SEARCH_TERM]\u201C",
+            },
+          });
+          setTimeout(function () {
+            var input = document.querySelector(
+              "#pagefind-container .pagefind-ui__search-input"
+            );
+            if (input) input.focus();
+          }, 100);
+        };
+        document.head.appendChild(script);
+      } else {
+        setTimeout(function () {
+          var input = document.querySelector(
+            "#pagefind-container .pagefind-ui__search-input"
+          );
+          if (input) input.focus();
+        }, 50);
+      }
     }
 
     function closeSearch() {
-      modal?.classList.add("hidden");
-      if (input) input.value = "";
-      if (results) results.innerHTML = "";
-      empty?.classList.add("hidden");
+      if (modal) modal.classList.add("hidden");
       document.body.style.overflow = "";
     }
 
-    function search(query: string) {
-      if (!results || !empty) return;
-      const q = query.toLowerCase().trim();
-      if (!q) {
-        results.innerHTML = "";
-        empty.classList.add("hidden");
-        return;
-      }
-      const matches = pages.filter(
-        (p) =>
-          p.title.toLowerCase().includes(q) ||
-          p.keywords.toLowerCase().includes(q)
-      );
-      if (matches.length === 0) {
-        results.innerHTML = "";
-        empty.classList.remove("hidden");
-      } else {
-        empty.classList.add("hidden");
-        results.innerHTML = matches
-          .map(
-            (p) =>
-              `<li><a href="${p.url}" class="block px-4 py-3 rounded-lg hover:bg-sand-100 dark:hover:bg-forest-800 text-forest-900 dark:text-white transition-colors"><span class="font-medium">${p.title}</span><span class="text-forest-600/50 dark:text-forest-100/50 ml-2">${p.url}</span></a></li>`
-          )
-          .join("");
-      }
-    }
-
-    toggle?.addEventListener("click", openSearch);
-    close?.addEventListener("click", closeSearch);
-    modal?.addEventListener("click", (e) => {
+    if (toggle) toggle.addEventListener("click", openSearch);
+    if (modal) modal.addEventListener("click", function (e) {
       if (e.target === modal) closeSearch();
     });
-    input?.addEventListener("input", () => search(input.value));
 
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") closeSearch();
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
@@ -129,5 +97,39 @@
   }
 
   initSearch();
-  document.addEventListener("astro:after-swap", initSearch);
 </script>
+
+<style is:global>
+  /* Pagefind UI theme overrides */
+  :root {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: var(--color-gold-500);
+    --pagefind-ui-text: var(--color-forest-900);
+    --pagefind-ui-background: #ffffff;
+    --pagefind-ui-border: var(--color-sand-200);
+    --pagefind-ui-tag: var(--color-sand-100);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 0.75rem;
+    --pagefind-ui-font: var(--font-family-body);
+  }
+
+  .dark {
+    --pagefind-ui-text: var(--color-sand-100);
+    --pagefind-ui-background: var(--color-forest-900);
+    --pagefind-ui-border: var(--color-forest-700);
+    --pagefind-ui-tag: var(--color-forest-800);
+  }
+
+  .pagefind-ui__search-input {
+    font-size: 1.125rem !important;
+    padding: 0.875rem 1rem !important;
+  }
+
+  .pagefind-ui__result-link {
+    color: var(--color-gold-500) !important;
+  }
+
+  .pagefind-ui__result-link:hover {
+    color: var(--color-gold-400) !important;
+  }
+</style>
