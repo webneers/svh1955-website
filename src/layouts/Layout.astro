@@ -1,0 +1,71 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Schützenverein Hochdorf 1955 e.V.",
+  description = "Tradition, Präzision und Gemeinschaft im Schützensport.",
+} = Astro.props;
+
+const navItems = [
+  { href: "/", label: "Start" },
+  { href: "/verein", label: "Verein" },
+  { href: "/schuetzenhaus", label: "Schützenhaus" },
+  { href: "/ergebnisse", label: "Ergebnisse" },
+  { href: "/mitgliedschaft", label: "Mitgliedschaft" },
+  { href: "/kontakt", label: "Kontakt" },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <div>
+          <p class="eyebrow">Seit 1955</p>
+          <a class="logo" href="/">Schützenverein Hochdorf e.V.</a>
+        </div>
+        <nav aria-label="Hauptnavigation">
+          <ul class="nav-list">
+            {
+              navItems.map((item) => (
+                <li>
+                  <a href={item.href}>{item.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container content-area">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>© {new Date().getFullYear()} Schützenverein Hochdorf 1955 e.V.</p>
+        <p>
+          <a href="/impressum">Impressum</a>
+          ·
+          <a href="/datenschutz">Datenschutz</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
