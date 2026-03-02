@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import MapHero from "../components/MapHero.astro";
 ---
 
 <Layout title="SV Hochdorf 1955 – Startseite">
@@ -61,9 +62,9 @@ import Layout from "../layouts/Layout.astro";
     aria-label="Schnelleinstieg"
   >
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Aktuelles -->
+      <!-- Kontakt & Anfahrt -->
       <a
-        href="/aktuelles"
+        href="/kontakt"
         class="group block bg-white dark:bg-forest-900 rounded-xl shadow-md hover:shadow-xl border border-sand-200 dark:border-forest-700 p-6 transition-all duration-300 hover:-translate-y-1"
       >
         <div
@@ -86,15 +87,17 @@ import Layout from "../layouts/Layout.astro";
         <h2
           class="font-heading font-bold text-lg text-forest-900 dark:text-white mb-2 group-hover:text-gold-500 transition-colors"
         >
-          Aktuelles
+          Kontakt & Anfahrt
         </h2>
-        <p class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed">
-          Unsere Homepage wird momentan umgebaut. Wir bitten um etwas Geduld.
+        <p
+          class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed"
+        >
+          Adresse, Ansprechpartner und direkte Navigation zum Schützenhaus.
         </p>
         <span
           class="inline-flex items-center gap-1 mt-4 text-sm font-medium text-gold-500"
         >
-          Zu allen Meldungen
+          Route planen
           <svg
             class="w-4 h-4 group-hover:translate-x-1 transition-transform"
             fill="none"
@@ -136,7 +139,9 @@ import Layout from "../layouts/Layout.astro";
         >
           Nächste Termine
         </h2>
-        <p class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed">
+        <p
+          class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed"
+        >
           Sonntag Frühschoppen und Vereinsbetrieb ab 10:00 Uhr auf der
           Sandhalde.
         </p>
@@ -158,9 +163,9 @@ import Layout from "../layouts/Layout.astro";
         </span>
       </a>
 
-      <!-- Ergebnisse -->
+      <!-- Verein -->
       <a
-        href="/ergebnisse"
+        href="/verein"
         class="group block bg-white dark:bg-forest-900 rounded-xl shadow-md hover:shadow-xl border border-sand-200 dark:border-forest-700 p-6 transition-all duration-300 hover:-translate-y-1"
       >
         <div
@@ -183,15 +188,17 @@ import Layout from "../layouts/Layout.astro";
         <h2
           class="font-heading font-bold text-lg text-forest-900 dark:text-white mb-2 group-hover:text-gold-500 transition-colors"
         >
-          Ergebnisse
+          Verein
         </h2>
-        <p class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed">
-          Aktuelle Liga- und Meisterschaftsergebnisse unserer Mannschaften.
+        <p
+          class="text-sm text-forest-700/70 dark:text-forest-100/60 leading-relaxed"
+        >
+          Alles Wichtige zu Geschichte, Vorstandschaft und Vereinsleben.
         </p>
         <span
           class="inline-flex items-center gap-1 mt-4 text-sm font-medium text-gold-500"
         >
-          Zu den Ergebnissen
+          Mehr über uns
           <svg
             class="w-4 h-4 group-hover:translate-x-1 transition-transform"
             fill="none"
@@ -252,4 +259,12 @@ import Layout from "../layouts/Layout.astro";
       </a>
     </div>
   </section>
+
+  <MapHero
+    title="Anfahrt"
+    address="Schützenverein Hochdorf 1955 e.V., Sandhalde 2, 72202 Nagold"
+    embedUrl="https://www.openstreetmap.org/export/embed.html?bbox=8.70302356671485%2C48.48861298345707%2C8.72302356671485%2C48.50861298345707&layer=mapnik&marker=48.49861298345707%2C8.713023566714849"
+    ctaUrl="https://www.google.com/maps/dir/?api=1&destination=48.49861298345707%2C8.713023566714849"
+    ctaLabel="In Google Maps öffnen (Navigation)"
+  />
 </Layout>

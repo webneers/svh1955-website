@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string;
+  address: string;
+  embedUrl: string;
+  ctaUrl: string;
+  ctaLabel: string;
+}
+
+const { title, address, embedUrl, ctaUrl, ctaLabel } = Astro.props;
+---
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+  <div
+    class="bg-white dark:bg-forest-900 rounded-xl shadow-md border border-sand-200 dark:border-forest-700 overflow-hidden"
+  >
+    <div class="p-6 sm:p-8 border-b border-sand-200 dark:border-forest-700">
+      <h2
+        class="font-heading text-2xl font-bold text-forest-900 dark:text-white mb-2"
+      >
+        {title}
+      </h2>
+      <p class="text-sm text-forest-700/70 dark:text-forest-100/60">
+        {address}
+      </p>
+    </div>
+
+    <div class="h-[360px] w-full">
+      <iframe
+        title="Karte zum Schützenverein Hochdorf 1955 e.V."
+        src={embedUrl}
+        class="w-full h-full border-0"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="p-6 sm:p-8 bg-sand-50 dark:bg-forest-800/50">
+      <a
+        href={ctaUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-4 py-2.5 bg-gold-500 hover:bg-gold-400 text-forest-950 font-semibold text-sm rounded-lg transition-colors"
+      >
+        {ctaLabel}
+      </a>
+    </div>
+  </div>
+</section>
