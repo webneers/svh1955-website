@@ -5,22 +5,32 @@ import MapHero from "../components/MapHero.astro";
 
 <Layout title="SV Hochdorf 1955 – Startseite">
   <!-- Hero -->
-  <section
-    class="relative bg-gradient-to-br from-forest-900 via-forest-800 to-forest-900 text-white overflow-hidden"
-  >
-    <!-- Decorative rings pattern -->
-    <div class="absolute inset-0 opacity-5">
+  <section class="relative bg-forest-900 text-white overflow-hidden">
+    <!-- Schützenhaus image background -->
+    <div class="absolute inset-0">
+      <img
+        src="/img/schuetzenhaus.jpg"
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 h-full w-full object-cover opacity-45"
+      />
       <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border-[3px] border-white rounded-full"
+        class="absolute inset-0 bg-gradient-to-br from-forest-950/85 via-forest-900/80 to-forest-800/85"
       >
       </div>
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border-[3px] border-white rounded-full"
-      >
-      </div>
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] border-[3px] border-white rounded-full"
-      >
+      <div class="absolute inset-0 opacity-10">
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border-[3px] border-white rounded-full"
+        >
+        </div>
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border-[3px] border-white rounded-full"
+        >
+        </div>
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] border-[3px] border-white rounded-full"
+        >
+        </div>
       </div>
     </div>
 
